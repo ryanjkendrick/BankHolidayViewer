@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <hr />
+    <div id="englandTab"><h3>England and Wales</h3></div>
+    <div id="index_native_eng" class="box"></div>
+    <hr />
+    <div id="scotTab"><h3>Scotland</h3></div>
+    <div id="index_native_scot" class="box"></div>
+    <hr />
+    <div id="irelandTab"><h3>Northern Ireland</h3></div>
+    <div id="index_native_ire" class="box"></div>
+    <hr />
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<script>
+    var holData = null;
+    var englandTable = document.getElementById("englandTab");
+    var scotTable = document.getElementById("scotTab");
+    var irelandTable = document.getElementById("irelandTab");
+
+    function getHolData() {
+        var request = new XMLHttpRequest();
+        request.open('GET', '/Home/GetHolidays', true);
+
+        request.onload = function () {
+            if (request.status >= 200 && request.status < 400) {
+                // Success!
+                holData = JSON.parse(request.responseText);
+                updateTables();
+            } else {
+                // We reached our target server, but it returned an error
+            }
+        };
+
+        request.onerror = function () {
+            // There was a connection error of some sort
+
+        };
+
+        request.send();
+    }
+
+    function updateTables() {
+        if (holData) {
+            var hols = holData.englandAndWales.events;
+            englandTable.appendChild(createTable(hols));
+
+            var hols = holData.scotland.events;
+            scotTable.appendChild(createTable(hols));
+
+            var hols = holData.northernIreland.events;
+            irelandTable.appendChild(createTable(hols));
+
+            paginator({
+                table: englandTable.getElementsByTagName("table")[0],
+                box: document.getElementById("index_native_eng"),
+                active_class: "color_page"
+            });
+
+            paginator({
+                table: scotTable.getElementsByTagName("table")[0],
+                box: document.getElementById("index_native_scot"),
+                active_class: "color_page"
+            });
+
+            paginator({
+                table: irelandTable.getElementsByTagName("table")[0],
+                box: document.getElementById("index_native_ire"),
+                active_class: "color_page"
+            });
+        }
+    }
+
+    function createTable(dataArray) {
+        var tab = document.createElement('table');
+        let propNames = Object.keys(dataArray[0]);
+
+        generateTableHead(tab, propNames);
+        generateTable(tab, dataArray);
+
+        return tab;
+    }
+
+    function generateTableHead(table, data) {
+        let thead = table.createTHead();
+        let row = thead.insertRow();
+        for (let key of data) {
+            let th = document.createElement("th");
+            let text = document.createTextNode(key);
+            th.appendChild(text);
+            row.appendChild(th);
+        }
+    }
+
+    function generateTable(table, data) {
+        let tbody = table.createTBody();
+        for (let element of data) {
+            let row = tbody.insertRow();
+            for (key in element) {
+                let cell = row.insertCell();
+                let text = document.createTextNode(element[key]);
+                cell.appendChild(text);
+            }
+        }
+    }
+
+    function payload() {
+        getHolData();
+
+        if (englandTable.getElementsByTagName("table") !== null) {
+            var tableList = englandTable.getElementsByTagName("table");
+            for (var i = 0; i < tableList.length; i++) {
+                englandTable.removeChild(tableList[i]);
+            }
+        }
+
+        if (scotTable.getElementsByTagName("table") !== null) {
+            var tableList = scotTable.getElementsByTagName("table");
+            for (var i = 0; i < tableList.length; i++) {
+                scotTable.removeChild(tableList[i]);
+            }
+        }
+
+        if (irelandTable.getElementsByTagName("table") !== null) {
+            var tableList = irelandTable.getElementsByTagName("table");
+            for (var i = 0; i < tableList.length; i++) {
+                irelandTable.removeChild(tableList[i]);
+            }
+        }
+    }
+
+    window.addEventListener("load", payload);
+</script>
+<script type="text/javascript" src="~/js/paginator.js"></script>

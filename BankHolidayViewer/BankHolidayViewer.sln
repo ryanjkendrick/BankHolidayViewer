@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankHolidayViewer", "BankHolidayViewer\BankHolidayViewer.csproj", "{066FD44E-E1C6-418A-9F54-EA08FCB0220A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankHolidayAcquisition", "BankHolidayAcquirer\BankHolidayAcquisition.csproj", "{FFC45C45-6F8F-4A12-8B1E-06C9397D318E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{066FD44E-E1C6-418A-9F54-EA08FCB0220A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{066FD44E-E1C6-418A-9F54-EA08FCB0220A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{066FD44E-E1C6-418A-9F54-EA08FCB0220A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{066FD44E-E1C6-418A-9F54-EA08FCB0220A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC45C45-6F8F-4A12-8B1E-06C9397D318E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC45C45-6F8F-4A12-8B1E-06C9397D318E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC45C45-6F8F-4A12-8B1E-06C9397D318E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC45C45-6F8F-4A12-8B1E-06C9397D318E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
